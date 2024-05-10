@@ -2,12 +2,14 @@ import misc.*; //importing all sorts, since they're in one package
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.stream.IntStream;
+
 public class Main {
     public static int[] generateRandomArray(int size){
         Random rand = new Random();
         int[] arr = new int[size];
         for(int i = 0; i < size; i++){
-            arr[i] = rand.nextInt(10);
+            arr[i] = rand.nextInt(1000);
         }
         return arr;
     }
@@ -43,9 +45,9 @@ public class Main {
         long[][] timesReversed = new long[algorithms.length][numTests];
         for (int test = 0; test < numTests; test++){
             System.out.println("Test: " + (test +1) + ":");
-            int[] randArr = generateRandomArray(10);
-            int[] revSortArr = new int[]{10,9,8,7,6,5,4,3,2,1};
-            int[] sortArr = new int[]{1,2,3,4,5,6,7,8,9,10};
+            int[] randArr = generateRandomArray(100);
+            int[] sortArr = IntStream.rangeClosed(1,100).toArray();
+            int[] revSortArr = IntStream.rangeClosed(1,100).map(i->101-i).toArray();
             System.out.println("Random array:");
             for (int i = 0; i < algorithms.length; i++) {
                 int[] copyRandom = Arrays.copyOf(randArr, randArr.length);
