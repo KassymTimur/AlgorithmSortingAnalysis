@@ -35,7 +35,8 @@ public class Main {
                 System.out.println("Invalid algorithm");
         }
         long endTime = System.nanoTime();
-        return endTime - startTime;
+        long durationNano = endTime - startTime;
+        return durationNano / 1000;
     }
     public static void main(String[] args) {
         int numTests = 10;
@@ -45,26 +46,26 @@ public class Main {
         long[][] timesReversed = new long[algorithms.length][numTests];
         for (int test = 0; test < numTests; test++){
             System.out.println("Test: " + (test +1) + ":");
-            int[] randArr = generateRandomArray(100);
-            int[] sortArr = IntStream.rangeClosed(1,100).toArray();
-            int[] revSortArr = IntStream.rangeClosed(1,100).map(i->101-i).toArray();
+            int[] randArr = generateRandomArray(1000);
+            int[] sortArr = IntStream.rangeClosed(1,1000).toArray();
+            int[] revSortArr = IntStream.rangeClosed(1,1000).map(i->1001-i).toArray();
             System.out.println("Random array:");
             for (int i = 0; i < algorithms.length; i++) {
                 int[] copyRandom = Arrays.copyOf(randArr, randArr.length);
                 timesRandom[i][test] = testSortingAlgorithm(copyRandom, algorithms[i]);
-                System.out.println(algorithms[i] + ": " + timesRandom[i][test] + " nanoseconds");
+                System.out.println(algorithms[i] + ": " + timesRandom[i][test] + " microseconds");
             }
             System.out.println("\nSorted array:");
             for (int i = 0; i < algorithms.length; i++) {
                 int[] copySorted = Arrays.copyOf(sortArr, sortArr.length);
                 timesSorted[i][test] = testSortingAlgorithm(copySorted, algorithms[i]);
-                System.out.println(algorithms[i] + ": " + timesSorted[i][test] + " nanoseconds");
+                System.out.println(algorithms[i] + ": " + timesSorted[i][test] + " microseconds");
             }
             System.out.println("\nReversed array:");
             for (int i = 0; i < algorithms.length; i++) {
                 int[] copyReversed = Arrays.copyOf(revSortArr, revSortArr.length);
                 timesReversed[i][test] = testSortingAlgorithm(copyReversed, algorithms[i]);
-                System.out.println(algorithms[i] + ": " + timesReversed[i][test] + " nanoseconds");
+                System.out.println(algorithms[i] + ": " + timesReversed[i][test] + " microseconds");
             }
         }
         System.out.println("\nAverage time for each algorithm for each array:");
@@ -75,9 +76,9 @@ public class Main {
                 sumSorted += timesSorted[i][test];
                 sumReversed += timesReversed[i][test];
             }
-            System.out.println(algorithms[i] + " - Random array: " + (sumRandom / numTests) + " nanoseconds");
-            System.out.println(algorithms[i] + " - Sorted array: " + (sumSorted / numTests) + " nanoseconds");
-            System.out.println(algorithms[i] + " - Reversed array: " + (sumReversed / numTests) + " nanoseconds");
+            System.out.println(algorithms[i] + " - Random array: " + (sumRandom / numTests) + " microseconds");
+            System.out.println(algorithms[i] + " - Sorted array: " + (sumSorted / numTests) + " microseconds");
+            System.out.println(algorithms[i] + " - Reversed array: " + (sumReversed / numTests) + " microseconds");
         }
     }
 
